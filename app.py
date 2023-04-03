@@ -11,12 +11,12 @@ try:
     connection = mysql.connector.connect(database='electricity_price', user='root')
     cursor = connection.cursor(prepared=True, dictionary=True)
 
-    query = ("INSERT INTO prices(time, price) VALUES((%s), (%s))")
+    query = ("INSERT INTO prices(price, time) VALUES((%s), (%s))")
 
     # Execute query for each price row and save to database
     # prices = [{'_time': 'YYYY-MM-DDTHH:MM:SSZ', 'value': float}, ...]
     for price in prices:
-        cursor.execute(query, (price['_time'], price['value']))
+        cursor.execute(query, (price['value'], price['_time']))
 
     connection.commit()    
 
